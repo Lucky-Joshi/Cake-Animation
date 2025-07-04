@@ -57,7 +57,7 @@ A beautiful animated birthday surprise web page with personalized name input, an
 Thankyou so much Bestu for the surprise ❤️
 ```
 
-* Sent directly to: `+91 9716222967`
+* Sent directly to: `+91 XXXXXXXXXX`
 
 ---
 
