@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,7 +17,6 @@
       align-items: center;
     }
 
-    /* PAGE WRAPPERS */
     .screen {
       position: absolute;
       width: 100%;
@@ -32,7 +32,7 @@
       pointer-events: none;
     }
 
-    /* NAME INPUT SCREEN */
+    /* Name screen */
     .name-screen {
       flex-direction: column;
       text-align: center;
@@ -69,7 +69,7 @@
       background: #ad1457;
     }
 
-    /* CAKE PAGE */
+    /* Cake */
     .cake-wrapper {
       text-align: center;
       position: relative;
@@ -116,11 +116,8 @@
         45deg, #ffeb3b, #ffeb3b 4px, #ffc107 4px, #ffc107 8px
       );
       border-radius: 2px;
+      transition: opacity 1s ease;
     }
-
-    .candle:nth-child(1) { left: 46%; }
-    .candle:nth-child(2) { left: 50%; }
-    .candle:nth-child(3) { left: 54%; }
 
     .flame {
       position: absolute;
@@ -132,6 +129,7 @@
       background: radial-gradient(yellow, orange, red);
       border-radius: 50%;
       animation: flicker 0.2s infinite alternate;
+      transition: opacity 1s ease;
     }
 
     @keyframes flicker {
@@ -146,8 +144,8 @@
       text-shadow: 1px 1px white;
     }
 
-    .reveal-btn {
-      margin-top: 20px;
+    .reveal-btn, .whatsapp-btn {
+      margin: 10px;
       padding: 10px 20px;
       background: #d81b60;
       color: white;
@@ -156,9 +154,11 @@
       font-size: 1em;
       cursor: pointer;
       transition: background 0.3s;
+      text-decoration: none;
+      display: inline-block;
     }
 
-    .reveal-btn:hover {
+    .reveal-btn:hover, .whatsapp-btn:hover {
       background: #ad1457;
     }
 
@@ -186,7 +186,7 @@
 </head>
 <body>
 
-<!-- SCREEN 1: Name Prompt -->
+<!-- 1. Name Input Screen -->
 <div class="screen name-screen" id="nameScreen">
   <div>
     <h1>Hey you! What's your name? 😊</h1>
@@ -196,27 +196,36 @@
   </div>
 </div>
 
-<!-- SCREEN 2: Cake Page -->
+<!-- 2. Cake Display -->
 <div class="screen hidden" id="cakeScreen">
   <div class="cake-wrapper">
-    <div class="candle"><div class="flame"></div></div>
-    <div class="candle"><div class="flame"></div></div>
-    <div class="candle"><div class="flame"></div></div>
+    <!-- Candles -->
+    <div class="candle" id="c1" style="left: 46%;"><div class="flame" id="f1"></div></div>
+    <div class="candle" id="c2" style="left: 50%;"><div class="flame" id="f2"></div></div>
+    <div class="candle" id="c3" style="left: 54%;"><div class="flame" id="f3"></div></div>
 
+    <!-- Cake layers -->
     <div class="cake-layer layer-top"><div class="icing"></div></div>
     <div class="cake-layer layer-middle"><div class="icing"></div></div>
     <div class="cake-layer layer-bottom"><div class="icing"></div></div>
 
+    <!-- Message -->
     <div class="message">Happy Birthday, <span id="insertName">Bestie</span>! 🎉</div>
+
+    <!-- Buttons -->
     <button class="reveal-btn" onclick="reveal()">🎁 Click for a Surprise</button>
+    <a class="whatsapp-btn" id="whatsappBtn" target="_blank">💬 Say Thank You</a>
   </div>
 </div>
 
-<!-- Surprise Message -->
+<!-- 3. Surprise Popup -->
 <div class="popup" id="popup">
-  🎈 You're not just special today — you're **always** special.  
+  🎈 You're not just special today — you're always special.  
   Here's to joy, love, and infinite smiles. Happy Birthday! 💖
 </div>
+
+<!-- 4. Audio -->
+<audio id="bdayMusic" src="https://cdn.pixabay.com/download/audio/2022/03/08/audio_29f7e7e7b0.mp3?filename=happy-birthday-to-you-piano-version-109503.mp3" preload="auto"></audio>
 
 <script>
   function startBirthday() {
@@ -224,9 +233,22 @@
     if (!name) return alert("Please enter your name!");
 
     document.getElementById('insertName').textContent = name;
-
     document.getElementById('nameScreen').classList.add('hidden');
     document.getElementById('cakeScreen').classList.remove('hidden');
+
+    // 🎵 Play music
+    document.getElementById("bdayMusic").play();
+
+    // 💬 Set WhatsApp button
+    const msg = encodeURIComponent("Thankyou so much Bestu for the surprise ❤️\n\nI loved it! 🎉");
+    document.getElementById("whatsappBtn").href = `https://wa.me/919716222967?text=${msg}`;
+
+    // 🎬 Blow out candles after 5 seconds
+    setTimeout(() => {
+      ['f1','f2','f3','c1','c2','c3'].forEach(id => {
+        document.getElementById(id).style.opacity = 0;
+      });
+    }, 5000);
   }
 
   function reveal() {
@@ -236,4 +258,3 @@
 
 </body>
 </html>
-
