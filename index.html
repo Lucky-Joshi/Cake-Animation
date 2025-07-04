@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Elegant Animated Birthday Cake</title>
+  <title>🎂 Happy Birthday</title>
   <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
   <style>
     body {
@@ -12,45 +12,32 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      overflow: hidden;
       font-family: 'Pacifico', cursive;
+      overflow: hidden;
     }
 
     .cake-wrapper {
+      text-align: center;
       position: relative;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
       animation: fadeIn 1s ease-out;
     }
 
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(50px); }
+      from { opacity: 0; transform: translateY(30px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
     .cake-layer {
-      position: relative;
       background: linear-gradient(to bottom, #ff99aa, #ff5e78);
       border-radius: 12px;
       box-shadow: 0 5px 10px rgba(0,0,0,0.1);
-      margin: 6px 0;
+      margin: 6px auto;
+      position: relative;
     }
 
-    .layer-bottom {
-      width: 220px;
-      height: 50px;
-    }
-
-    .layer-middle {
-      width: 170px;
-      height: 50px;
-    }
-
-    .layer-top {
-      width: 120px;
-      height: 50px;
-    }
+    .layer-bottom { width: 220px; height: 50px; }
+    .layer-middle { width: 170px; height: 50px; }
+    .layer-top { width: 120px; height: 50px; }
 
     .icing {
       position: absolute;
@@ -58,9 +45,8 @@
       left: 0;
       width: 100%;
       height: 25px;
-      background: #fff;
-      border-radius: 20px 20px 0 0;
       background: radial-gradient(#fff, #fce4ec);
+      border-radius: 20px 20px 0 0;
       clip-path: polygon(
         0% 100%, 10% 70%, 20% 100%, 30% 70%, 40% 100%, 
         50% 70%, 60% 100%, 70% 70%, 80% 100%, 90% 70%, 100% 100%, 100% 0, 0 0
@@ -78,9 +64,9 @@
       border-radius: 2px;
     }
 
-    .candle:nth-child(1) { left: 40%; }
+    .candle:nth-child(1) { left: 45%; }
     .candle:nth-child(2) { left: 50%; }
-    .candle:nth-child(3) { left: 60%; }
+    .candle:nth-child(3) { left: 55%; }
 
     .flame {
       position: absolute;
@@ -104,19 +90,9 @@
       font-size: 2em;
       color: #c2185b;
       text-shadow: 1px 1px white;
-      animation: typewriter 4s steps(30, end) 1s 1 normal both;
       white-space: nowrap;
-      overflow: hidden;
-      border-right: 2px solid #c2185b;
-      width: 0;
     }
 
-    @keyframes typewriter {
-      from { width: 0; }
-      to { width: 100%; }
-    }
-
-    /* Optional sparkle background */
     .sparkle {
       position: absolute;
       width: 6px;
@@ -131,46 +107,92 @@
       0% { transform: translateY(0) scale(1); opacity: 1; }
       100% { transform: translateY(100vh) scale(0.5); opacity: 0; }
     }
+
+    .reveal-btn {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background: #d81b60;
+      color: white;
+      border: none;
+      border-radius: 20px;
+      font-size: 1em;
+      cursor: pointer;
+      box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+      transition: background 0.3s;
+    }
+
+    .reveal-btn:hover {
+      background: #ad1457;
+    }
+
+    .popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      background: #fff0f5;
+      border: 2px solid #f06292;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+      text-align: center;
+      font-size: 1.3em;
+      color: #880e4f;
+      z-index: 10;
+      transition: transform 0.4s ease;
+    }
+
+    .popup.active {
+      transform: translate(-50%, -50%) scale(1);
+    }
   </style>
 </head>
 <body>
 
 <div class="cake-wrapper">
   <!-- Candles -->
-  <div class="candle" style="left: 45%;">
+  <div class="candle" style="left: 46%;">
     <div class="flame"></div>
   </div>
   <div class="candle" style="left: 50%;">
     <div class="flame"></div>
   </div>
-  <div class="candle" style="left: 55%;">
+  <div class="candle" style="left: 54%;">
     <div class="flame"></div>
   </div>
 
-  <!-- Cake Layers -->
-  <div class="cake-layer layer-top">
-    <div class="icing"></div>
-  </div>
-  <div class="cake-layer layer-middle">
-    <div class="icing"></div>
-  </div>
-  <div class="cake-layer layer-bottom">
-    <div class="icing"></div>
-  </div>
+  <!-- Cake -->
+  <div class="cake-layer layer-top"><div class="icing"></div></div>
+  <div class="cake-layer layer-middle"><div class="icing"></div></div>
+  <div class="cake-layer layer-bottom"><div class="icing"></div></div>
 
-  <div class="message">🎉 Happy Birthday, Bestie! 🎉</div>
+  <div class="message">Happy Birthday, <span id="name">Bestie</span>! 🎂</div>
+  <button class="reveal-btn" onclick="reveal()">🎁 Click for a Surprise</button>
+</div>
+
+<div class="popup" id="popup">
+  🎉 Wishing you endless happiness, laughter, and love today and always. You deserve all the magic in the world! 💖
 </div>
 
 <script>
-  // Optional: floating sparkles
-  for (let i = 0; i < 40; i++) {
-    const star = document.createElement('div');
-    star.classList.add('sparkle');
-    star.style.left = Math.random() * 100 + 'vw';
-    star.style.animationDuration = (2 + Math.random() * 2) + 's';
-    star.style.animationDelay = Math.random() + 's';
-    document.body.appendChild(star);
+  function reveal() {
+    document.getElementById("popup").classList.add("active");
   }
+
+  // Add sparkles
+  for (let i = 0; i < 40; i++) {
+    const sparkle = document.createElement('div');
+    sparkle.classList.add('sparkle');
+    sparkle.style.left = Math.random() * 100 + 'vw';
+    sparkle.style.animationDuration = (2 + Math.random() * 2) + 's';
+    sparkle.style.animationDelay = Math.random() + 's';
+    document.body.appendChild(sparkle);
+  }
+
+  // PERSONALIZE NAME
+  const params = new URLSearchParams(window.location.search);
+  const name = params.get("name");
+  if (name) document.getElementById("name").textContent = name;
 </script>
 
 </body>
