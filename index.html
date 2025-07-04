@@ -2,20 +2,74 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>🎂 Happy Birthday</title>
+  <title>Happy Birthday 🎂</title>
   <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
+      font-family: 'Pacifico', cursive;
       background: radial-gradient(circle at top, #fff0f5, #ffe4e1);
       height: 100vh;
+      overflow: hidden;
       display: flex;
       justify-content: center;
       align-items: center;
-      font-family: 'Pacifico', cursive;
-      overflow: hidden;
     }
 
+    /* PAGE WRAPPERS */
+    .screen {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: opacity 1s ease;
+    }
+
+    .hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* NAME INPUT SCREEN */
+    .name-screen {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .name-screen h1 {
+      font-size: 2.5em;
+      color: #c2185b;
+    }
+
+    .name-input {
+      padding: 10px 20px;
+      font-size: 1em;
+      border-radius: 30px;
+      border: none;
+      margin: 20px 0;
+      width: 250px;
+      text-align: center;
+      font-family: inherit;
+    }
+
+    .start-btn {
+      padding: 10px 25px;
+      font-size: 1em;
+      background: #d81b60;
+      color: white;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .start-btn:hover {
+      background: #ad1457;
+    }
+
+    /* CAKE PAGE */
     .cake-wrapper {
       text-align: center;
       position: relative;
@@ -64,9 +118,9 @@
       border-radius: 2px;
     }
 
-    .candle:nth-child(1) { left: 45%; }
+    .candle:nth-child(1) { left: 46%; }
     .candle:nth-child(2) { left: 50%; }
-    .candle:nth-child(3) { left: 55%; }
+    .candle:nth-child(3) { left: 54%; }
 
     .flame {
       position: absolute;
@@ -90,22 +144,6 @@
       font-size: 2em;
       color: #c2185b;
       text-shadow: 1px 1px white;
-      white-space: nowrap;
-    }
-
-    .sparkle {
-      position: absolute;
-      width: 6px;
-      height: 6px;
-      background: white;
-      border-radius: 50%;
-      opacity: 0.8;
-      animation: sparkleFall 4s linear infinite;
-    }
-
-    @keyframes sparkleFall {
-      0% { transform: translateY(0) scale(1); opacity: 1; }
-      100% { transform: translateY(100vh) scale(0.5); opacity: 0; }
     }
 
     .reveal-btn {
@@ -117,7 +155,6 @@
       border-radius: 20px;
       font-size: 1em;
       cursor: pointer;
-      box-shadow: 0 5px 10px rgba(0,0,0,0.1);
       transition: background 0.3s;
     }
 
@@ -149,50 +186,52 @@
 </head>
 <body>
 
-<div class="cake-wrapper">
-  <!-- Candles -->
-  <div class="candle" style="left: 46%;">
-    <div class="flame"></div>
+<!-- SCREEN 1: Name Prompt -->
+<div class="screen name-screen" id="nameScreen">
+  <div>
+    <h1>Hey you! What's your name? 😊</h1>
+    <input type="text" id="nameInput" class="name-input" placeholder="Enter your name">
+    <br>
+    <button class="start-btn" onclick="startBirthday()">Let's Go 🎂</button>
   </div>
-  <div class="candle" style="left: 50%;">
-    <div class="flame"></div>
-  </div>
-  <div class="candle" style="left: 54%;">
-    <div class="flame"></div>
-  </div>
-
-  <!-- Cake -->
-  <div class="cake-layer layer-top"><div class="icing"></div></div>
-  <div class="cake-layer layer-middle"><div class="icing"></div></div>
-  <div class="cake-layer layer-bottom"><div class="icing"></div></div>
-
-  <div class="message">Happy Birthday, <span id="name">Bestie</span>! 🎂</div>
-  <button class="reveal-btn" onclick="reveal()">🎁 Click for a Surprise</button>
 </div>
 
+<!-- SCREEN 2: Cake Page -->
+<div class="screen hidden" id="cakeScreen">
+  <div class="cake-wrapper">
+    <div class="candle"><div class="flame"></div></div>
+    <div class="candle"><div class="flame"></div></div>
+    <div class="candle"><div class="flame"></div></div>
+
+    <div class="cake-layer layer-top"><div class="icing"></div></div>
+    <div class="cake-layer layer-middle"><div class="icing"></div></div>
+    <div class="cake-layer layer-bottom"><div class="icing"></div></div>
+
+    <div class="message">Happy Birthday, <span id="insertName">Bestie</span>! 🎉</div>
+    <button class="reveal-btn" onclick="reveal()">🎁 Click for a Surprise</button>
+  </div>
+</div>
+
+<!-- Surprise Message -->
 <div class="popup" id="popup">
-  🎉 Wishing you endless happiness, laughter, and love today and always. You deserve all the magic in the world! 💖
+  🎈 You're not just special today — you're **always** special.  
+  Here's to joy, love, and infinite smiles. Happy Birthday! 💖
 </div>
 
 <script>
+  function startBirthday() {
+    const name = document.getElementById('nameInput').value.trim();
+    if (!name) return alert("Please enter your name!");
+
+    document.getElementById('insertName').textContent = name;
+
+    document.getElementById('nameScreen').classList.add('hidden');
+    document.getElementById('cakeScreen').classList.remove('hidden');
+  }
+
   function reveal() {
-    document.getElementById("popup").classList.add("active");
+    document.getElementById('popup').classList.add('active');
   }
-
-  // Add sparkles
-  for (let i = 0; i < 40; i++) {
-    const sparkle = document.createElement('div');
-    sparkle.classList.add('sparkle');
-    sparkle.style.left = Math.random() * 100 + 'vw';
-    sparkle.style.animationDuration = (2 + Math.random() * 2) + 's';
-    sparkle.style.animationDelay = Math.random() + 's';
-    document.body.appendChild(sparkle);
-  }
-
-  // PERSONALIZE NAME
-  const params = new URLSearchParams(window.location.search);
-  const name = params.get("name");
-  if (name) document.getElementById("name").textContent = name;
 </script>
 
 </body>
