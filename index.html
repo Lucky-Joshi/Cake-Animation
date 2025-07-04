@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Real Animated Birthday Cake</title>
+  <style>
+    body {
+      margin: 0;
+      background: #ffe6f0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .cake-container {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      animation: popIn 1s ease-out;
+    }
+
+    @keyframes popIn {
+      from { transform: scale(0.6); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .cake-layer {
+      background: #ff8fa3;
+      border-radius: 12px;
+      box-shadow: inset 0 -10px #ff5b77;
+      margin: 4px 0;
+      position: relative;
+    }
+
+    .layer1 {
+      width: 200px;
+      height: 40px;
+    }
+
+    .layer2 {
+      width: 160px;
+      height: 40px;
+    }
+
+    .layer3 {
+      width: 120px;
+      height: 40px;
+    }
+
+    .icing {
+      content: '';
+      position: absolute;
+      top: -20px;
+      left: 0;
+      width: 100%;
+      height: 30px;
+      background: #fff0f5;
+      border-radius: 12px 12px 0 0;
+      z-index: 1;
+    }
+
+    .candle {
+      position: absolute;
+      top: -50px;
+      width: 12px;
+      height: 40px;
+      background: #ffc107;
+      border-radius: 2px;
+      z-index: 2;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .flame {
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 14px;
+      height: 14px;
+      background: radial-gradient(orange, yellow, transparent);
+      border-radius: 50%;
+      animation: flicker 0.2s infinite alternate;
+      z-index: 3;
+    }
+
+    @keyframes flicker {
+      0% { transform: translateX(-50%) scale(1); opacity: 0.9; }
+      100% { transform: translateX(-50%) scale(1.2); opacity: 1; }
+    }
+
+    .message {
+      margin-top: 40px;
+      font-family: 'Comic Sans MS', cursive;
+      font-size: 2em;
+      color: #d500f9;
+      text-shadow: 1px 1px #fff;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+  </style>
+</head>
+<body>
+
+<div class="cake-container">
+  <div class="candle">
+    <div class="flame"></div>
+  </div>
+
+  <div class="cake-layer layer3">
+    <div class="icing"></div>
+  </div>
+  <div class="cake-layer layer2">
+    <div class="icing"></div>
+  </div>
+  <div class="cake-layer layer1">
+    <div class="icing"></div>
+  </div>
+
+  <div class="message">🎉 Happy Birthday! 🎉</div>
+</div>
+
+</body>
+</html>
